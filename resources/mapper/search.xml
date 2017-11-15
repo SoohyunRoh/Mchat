@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="search">
+	<resultMap id = "resultgetSearchResult" type = "HashMap">
+		<result javaType="java.lang.String" column = "PID" property = "pid"/>
+		<result javaType="java.lang.String" column = "FDIGIT" property = "fDigit"/>
+		<result javaType="java.lang.String" column = "NAME" property = "name"/>
+		<result javaType="java.lang.String" column = "STATUS" property = "status"/>
+	</resultMap>
+	<select id="getSearchResultCount" parameterType="HashMap" resultType="java.lang.String">
+		SELECT 	COUNT(*) CNT
+        FROM	(
+					SELECT  IFNULL(F.STATUS,0) STATUS
+					FROM	USER U LEFT JOIN 
+				            (	SELECT	*
+				            	FROM 	FRIEND_REQ
+				            	WHERE 	PID = #{pid}
+				            ) F
+		            		ON U.PID = F.REQUEST_PID
+			<trim prefix="WHERE" prefixOverrides="OR">
+				<if test='email eq "1"'>	<!-- email address -->
+							LOWER(U.EMAIL) LIKE LOWER(CONCAT('%',#{keyword},'%'))
+				</if>
+				<if test='name.equals("1") and !fdigit.equals("1")'>		<!-- name -->
+					OR		LOWER(U.NAME) LIKE LOWER(CONCAT('%',#{keyword},'%'))
+				</if>
+				<if test='fdigit eq "1"'>		<!-- name#fdigit -->
+					OR		CONCAT(LOWER(U.NAME),'#',U.FDIGIT) LIKE CONCAT('%',#{keyword},'%')
+				</if>
+			</trim>
+        		) IR 
+        WHERE	IR.STATUS != 2
+	</select>
+	<select id="getSearchResult" parameterType="HashMap" resultMap="resultgetSearchResult">
+		SELECT 	IR.PID,
+				IR.FDIGIT,
+				IR.NAME,
+				CASE 	WHEN IR.STATUS = '9' THEN '0' 
+						WHEN IR.STATUS = '3' THEN '1'
+						ELSE IR.STATUS 
+				END STATUS 
+        FROM	(
+					SELECT  U.PID,
+							U.EMAIL,
+							U.FDIGIT,
+							U.NAME,
+							IFNULL(F.STATUS,0) STATUS
+					FROM	USER U LEFT JOIN 
+				            (	SELECT	*
+				            	FROM 	FRIEND_REQ
+				            	WHERE 	PID = #{pid}
+				            ) F
+		            		ON U.PID = F.REQUEST_PID
+			<trim prefix="WHERE" prefixOverrides="OR">
+				<if test='email eq "1"'>	<!-- email address -->
+							LOWER(U.EMAIL) LIKE LOWER(CONCAT('%',#{keyword},'%'))
+				</if>
+				<if test='name.equals("1") and !fdigit.equals("1")'>		<!-- name -->
+					OR		LOWER(U.NAME) LIKE LOWER(CONCAT('%',#{keyword},'%'))
+				</if>
+				<if test='fdigit eq "1"'>		<!-- name#fdigit -->
+					OR		CONCAT(LOWER(U.NAME),'#',U.FDIGIT) LIKE CONCAT('%',#{keyword},'%')
+				</if>
+			</trim>
+        		) IR 
+        WHERE	IR.STATUS != 2
+        ORDER BY IR.NAME, IR.FDIGIT
+        LIMIT	#{start}, 5
+	</select>
+</mapper>

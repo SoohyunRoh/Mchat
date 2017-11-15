@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="login">
+	<resultMap id = "resultGetPersonalInfo" type = "HashMap">
+		<result javaType="java.lang.String" column = "PID" property = "pid"/>
+		<result javaType="java.lang.String" column = "EMAIL" property = "id"/>
+		<result javaType="java.lang.String" column = "NAME" property = "name"/>
+		<result javaType="java.lang.String" column = "FDIGIT" property = "fDigit"/>
+		<result javaType="java.lang.String" column = "STATUS" property = "status"/>
+		<result javaType="java.lang.String" column = "STATUS_PRESET" property = "statusPreset"/>
+		<result javaType="java.lang.String" column = "STATUS_MESSAGE" property = "statusMessage"/>
+		<result javaType="java.lang.String" column = "PORTRAIT_FILE" property = "portraitFile"/> 
+	</resultMap>
+	<resultMap id = "resultGetFriendList" type = "HashMap">
+		<result javaType="java.lang.String" column = "PID" property = "pid"/>
+		<result javaType="java.lang.String" column = "NAME" property = "name"/>
+		<result javaType="java.lang.String" column = "FDIGIT" property = "fDigit"/>
+		<result javaType="java.lang.String" column = "STATUS" property = "status"/>
+		<result javaType="java.lang.String" column = "STATUS_MESSAGE" property = "statusMessage"/>
+		<result javaType="java.lang.String" column = "RELATION" property = "block"/>
+		<result javaType="java.lang.String" column = "NEW_FRIEND" property = "newFriend"/>
+		<result javaType="java.lang.String" column = "CHAT_ID" property = "chatId"/>
+		<result javaType="java.lang.String" column = "PORTRAIT_FILE" property = "portraitFile"/> 
+	</resultMap>
+	<resultMap id = "resultGetFriendReqList" type = "HashMap">
+		<result javaType="java.lang.String" column = "PID" property = "pid"/>
+		<result javaType="java.lang.String" column = "NAME" property = "name"/>
+		<result javaType="java.lang.String" column = "FDIGIT" property = "fDigit"/>
+		
+	</resultMap>
+	<resultMap id = "resultGetFriendChatList" type = "HashMap">
+		<result javaType="java.lang.String" column = "SENDER" property = "sender"/>
+		<result javaType="java.lang.String" column = "DATETIME" property = "datetime"/>
+		<result javaType="java.lang.String" column = "MESSAGE" property = "message"/>
+		<result javaType="java.lang.String" column = "NEWMESSAGE" property = "read"/>
+	</resultMap>
+	<resultMap id = "resultGetDeletedFriendList" type = "HashMap">
+		<result javaType="java.lang.String" column = "PID" property = "pid"/>
+		<result javaType="java.lang.String" column = "NAME" property = "name"/>
+		<result javaType="java.lang.String" column = "FDIGIT" property = "fDigit"/>
+	</resultMap>
+
+	<select id="getPersonalInfo" parameterType="java.lang.String" resultMap="resultGetPersonalInfo">
+		SELECT	U.PID,
+				U.EMAIL, 
+				U.NAME,
+				U.FDIGIT,
+				U.STATUS,
+				U.STATUS_PRESET,
+				U.STATUS_MESSAGE,
+				(	SELECT	CONCAT(IP.PID, IP.UTIME, '.', IP.EXE)
+					FROM	PORTRAIT IP
+					WHERE	IP.PID = U.PID
+					AND		IP.SEQ = (	SELECT	MAX(IIP.SEQ) 
+										FROM	PORTRAIT IIP 
+										WHERE	IIP.PID = IP.PID
+									 )
+				) PORTRAIT_FILE
+		FROM	USER U
+		WHERE	U.PID = #{pid}
+	</select>
+	
+	
+	
+	<select id="getFriendList" parameterType="java.lang.String" resultMap="resultGetFriendList">
+		SELECT	U.PID,
+				U.NAME,
+				U.FDIGIT,
+				U.STATUS,
+				U.STATUS_MESSAGE,
+				F.RELATION,
+				CASE WHEN TO_DAYS(NOW()) - TO_DAYS(F.REG_DATE) <![CDATA[<=]]> 7 THEN 'Y' ELSE 'N' END NEWFRIEND,
+				F.CHAT_ID,
+				(	SELECT	CONCAT(IP.PID, IP.UTIME, '.', IP.EXE)
+					FROM	PORTRAIT IP
+					WHERE	IP.PID = U.PID
+					AND		IP.SEQ = (	SELECT	MAX(IIP.SEQ) 
+										FROM	PORTRAIT IIP 
+										WHERE	IIP.PID = IP.PID
+									 )
+				) PORTRAIT_FILE
+		FROM	FRIEND F JOIN USER U ON F.FPID = U.PID
+		WHERE	F.PID = #{pid}
+		AND		F.RELATION != '9'
+	</select>
+
+	<select id="getFriendReqList" parameterType="java.lang.String" resultMap="resultGetFriendReqList">
+		SELECT	U.PID,
+				U.NAME,
+				U.FDIGIT
+		FROM	FRIEND_REQ F JOIN USER U ON F.PID = U.PID
+		WHERE	F.REQUEST_PID = #{pid}
+		AND		F.STATUS = '1'
+	</select>
+
+	<select id="getDeletedFriendList" parameterType="java.lang.String" resultMap="resultGetDeletedFriendList">
+		SELECT	U.PID,
+				U.NAME,
+				U.FDIGIT
+		FROM	FRIEND F JOIN USER U ON F.FPID = U.PID
+		WHERE	F.PID = #{pid}
+		AND		F.RELATION = '9'
+	</select>
+	
+	<select id="getFriendChatList" parameterType="hashMap" resultMap="resultGetFriendChatList">
+		SELECT	CASE WHEN SENDER_PID = #{pid} THEN '1' ELSE '2' END SENDER,
+				DATE_FORMAT(DATETIME, '%Y-%m-%dT%H:%i:%s') DATETIME	,
+				C.MESSAGE,
+				IFNULL(C.NEWMESSAGE,'Y') NEWMESSAGE
+		FROM	CHAT_HISTORY C
+		WHERE	C.CHAT_ID = #{chatId}
+		ORDER BY C.CHAT_SEQ	
+	</select>
+
+	<select id="loginRequest" parameterType="hashMap" resultType="java.lang.String">
+		SELECT	U.PID RESULT
+		FROM	USER U
+		WHERE	U.EMAIL = #{email}
+		AND		CAST(aes_decrypt(unhex(U.PASSWORD), md5('54263')) AS CHAR) = #{password}
+	</select>
+	<select id="checkDuplicateEmail" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT	COUNT(*) CNT
+		FROM	USER U
+		WHERE	U.EMAIL = #{email}
+	</select>
+	
+	<insert id="getNewPID" parameterType="HashMap">
+		INSERT INTO USER VALUES (
+			null,
+			#{email},
+			#{fdigit},
+			#{nickname},
+			'1',
+			'',
+			'1',
+			hex(aes_encrypt(#{password},md5('54263'))),
+			now(),
+			'2',
+			now()
+		)
+		<selectKey resultType="int" keyProperty="PID" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertVertifyNumber" parameterType="HashMap">
+		INSERT INTO VERTIFY VALUES (
+			null,
+			#{PID},
+			#{vnm},
+			now()
+		)
+	</insert>
+	
+	<select id="checkVertifyNumber" parameterType="hashMap" resultType="java.lang.String">
+		SELECT	COUNT(*) CNT
+		FROM	VERTIFY V
+		WHERE	V.PID = #{pid}
+		AND		V.CODE = #{vnm}
+	</select>
+	
+	<update id="updateVertifyNumber" parameterType="java.lang.String">
+		UPDATE	USER U SET
+				U.EMAIL_VERTIFIED = '1'
+		WHERE	U.PID = #{pid}
+	</update>
+	
+</mapper>

@@ -1,0 +1,532 @@
+html {
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.tabs {
+	height: 30px !important;
+}
+
+.tabs .tab {
+	line-height: 30px !important;
+	height: 30px !important;
+}
+
+.tabsColor {
+	color: black !important;
+	font-size: 11px !important;
+	
+}
+
+.page-footer{
+	background-color: #fb7e18 !important;
+	font-size: 11px !important;
+}
+
+.tabs .indicator {
+	height: 3px !important;
+	background-color: #fb7e18 !important;
+}
+
+.mc_logo{
+	line-height: 38px !important;
+	height: 38px !important;
+	margin-bottom:0px !important;
+}
+
+.mc_loginBtn{
+	background-color: #fb7e18 !important;
+	height: 26px;
+	line-height: 26px;
+}
+
+.mc_loginModalBtn{
+	padding-left:15px !important;
+	padding-right:15px !important;
+}
+
+.mc_tab_icon{
+	float:left;
+}
+.mc_tab{
+	font-weight:700;
+}
+
+#toast-container {
+  top: -10px !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-top:0px !important;
+  padding-top:0px !important;
+}
+
+.toast{
+	font-weight:bold;
+}
+
+.mc_pinfo_top{
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:15px;
+	margin-bottom:5px;
+}
+.mc_pinfo_top_img{
+	height: 45px;
+	padding:0px !important;
+}
+
+.mc_pinfo_top_img img{
+	border-radius: 5px;
+	height:45px;
+	width:auto;
+	max-width:60px;
+}
+
+.mc_pinfo_top_account{
+	margin-left:2px !important;
+}
+
+.mc_pinfo_msg{
+	font-size:12px;
+	width:100% !important;
+}
+
+.mc_ex01{
+	margin-bottom:3px;
+}
+
+.input-field{
+	padding:0px !important;
+}
+
+#FriendList, #FriendChatList, #ChatRoom{
+	font-size:13px;
+
+}
+
+.mc_statusSel{
+	margin-top:0px !important;
+	margin-bottom:0px !important;
+}
+
+.mc_statusSel select{
+	height:2rem !important;
+	padding:0px !important;
+}
+
+.mc_flist_outline{
+	margin-top:15px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	height: 350px;
+	background-color:#fff6f6;
+	border:1px solid #efe8e8;
+}
+
+.mc_clist_outline{
+	margin-top:15px;
+
+	height: 100%;
+	background-color:#fff6f6;
+	border:1px solid #efe8e8;
+}
+
+.mc_reqFriend{
+	overflow-x:hidden;
+	overflow-y:scroll;
+	height: 80px;
+	background-color:#fff6f6;
+	border:1px solid #efe8e8;
+	padding-top:0px;
+}
+
+.mc_reqFriend .collection{
+	margin:0px;
+}
+
+.mc_flist_outline div .row{
+	margin-bottom:5px !important;
+}
+
+.mc_flist_img{
+	height: 40px;
+	width: 51px !important;
+	padding:0px !important;
+}
+
+.mc_right {
+	text-align:right;
+}
+
+.mc_flist_img img{
+	border-radius: 5px;
+	height:38px;
+	max-width:50px;
+}
+
+.mc_ex02{
+	padding-top:5px !important;
+	padding-bottom:2px !important;
+	padding-left:2px !important;
+	padding-right:2px !important;
+}
+
+.mc_flist {
+	margin-left:2px !important;
+	margin-right:2px !important;
+	height:50px !important;
+}
+
+.mc_chatlist{
+	margin-left:2px !important;
+	margin-right:2px !important;
+	height:22px !important;
+}
+
+.btn, .btn-large{
+	background-color: #fb7e18 !important;
+	height: 26px;
+	line-height: 26px;
+	width:100%;
+}
+
+.row[class$="mc_flist_outline"] {
+	margin-bottom: 5px;
+}
+
+.collapsible{
+	margin:0px;
+}
+
+.collapsible-header{
+	padding-top:4px;
+	padding-left:2px !important;
+	padding-right:2px !important;
+}
+
+.collapsible-body {
+	height:38px;
+	padding-top: 5px;
+}
+
+.collapsible-body .btn{
+	padding:0px;
+	font-size:9px;
+}
+
+.mc_addFriend{
+	margin-top:10px;
+}
+
+.mc_deletedFriendTitle{
+	margin-top:10px;
+	
+}
+
+.mc_deletedFriendListBtn{
+	background-color: #e0e0e0 !important;
+	color: #9b9b9b !important;
+}
+
+.mc_warning{
+	background-color: #000000 !important;
+}
+
+.mc_delete{
+	background-color: #ff3a3a !important;
+}
+
+.mc_unblock{
+	background-color: #fb7e18 !important;
+}
+
+.mc_leave{
+	background-color: #ffb300 !important;
+}
+
+.mc_resize01{
+	height:2rem !important;
+	padding:0px !important;
+	margin:0px  !important;	
+}
+
+.mc_resize02{
+	padding-top:3px !important;
+	padding-bottom:3px !important;
+	padding-left:10px !important;
+	padding-right:10px !important;
+	margin-bottom:0px  !important;
+}
+
+.mc_resize03{
+	margin-bottom:0px  !important;
+}
+
+.mc_icon_border{
+	border:1px solid #dddddd;
+	border-radius: 5px;
+}
+
+.mc_lastchat{
+	font-style:italic;
+	color:#777777;
+}
+
+.pagination li i{
+	font-size:1.4rem;
+}
+
+.pagination li {
+	
+	height:20px;
+}
+
+.pagination li a{
+	font-size:1rem;
+	line-height: 20px;
+	padding-left:6px;
+	padding-right:6px;
+}
+
+.mc_align_center{
+	text-align:center;
+}
+
+.modal { 
+	max-height: 65% !important;
+} 
+
+#portraitChange .modal-content .row{
+	margin-bottom:10px !important;
+}
+
+.mc_input_resize01{
+	margin:0px !important;
+	height:20px !important;
+}
+
+.mc_i{
+	font-style: italic;
+}
+
+.mc_resize04{
+	margin-bottom:0px !important;
+	line-height:20px;
+}
+
+.mc_nowrap{
+	white-space: nowrap;
+}
+
+.mc_resize05{
+	padding:0px;
+	height:20px;
+	line-height:1rem !important;
+	margin:0px !important;
+}
+
+.mc_link{
+	color:white;
+}
+
+.mc_online{
+	color:#10d010;
+}
+
+.mc_away{
+	color:#ffb300;
+}
+
+.mc_busy{
+	color:#ffb300;
+}
+
+.mc_offline{
+	color:#aaaaaa;
+}
+
+.mc_block{
+	color:#ff0000;
+}
+
+.mc_addFriendtitle, .mc_FriendChatTitle{
+	margin-bottom:0px !important;
+	margin-top:10px;
+	font-weight:bold;
+}
+
+.mc_friendChatBoard{
+	margin-top:0px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	height: 500px;
+	background-color:#0A8C9A ;
+	border:1px solid #006064 ;
+	border-radius: 5px;
+	padding:3px;
+}
+
+.mc_friendChatBoard .col{
+	#border:1px solid black;
+}
+
+.mc_chatLine{
+	margin-bottom:3px !important;
+	margin-left:3px !important;
+	margin-right:3px !important;
+}
+
+.mc_chatLine_Img_Left{
+	padding:0px !important;
+	margin-left:0px !important;
+	margin-right:4px !important;
+	border-radius: 2px;
+	text-align:center;
+}
+
+.mc_chatLine_Img_Left img{
+	border-radius: 2px;
+	height:30px;
+	max-width:50px;
+	border:1px solid #bbbbbb;
+}
+
+.mc_chatLine_msg{
+	margin:0px !important;
+	padding:0px !important;
+}
+
+.mc_chatLine_msg01{
+	padding:0px !important;
+	font-size:11px;
+	
+}
+
+.mc_chatLine_msg02{
+	padding:0px !important;
+	margin-top:4px !important;
+	width:100%;
+}
+
+.mc_chatBubble{
+	font-weight:normal;
+	margin:0px;
+	padding:5px !important;
+	border-radius:3px;
+	border:1px solid #afafaf;
+	background-color: #ffffff;
+	max-width:100%;
+	display:inline-block;
+}
+
+.mc_chatBubble span{
+	word-wrap: break-word;
+	color:#000000;
+}
+
+.mc_chatLine_time{
+	padding:0px !important;
+	font-size:10px;
+	font-weight:normal;
+	text-align:right;
+}
+
+.mc_yourMsg{
+	text-align:right;
+}
+
+.mc_yourMsgColor{
+	border:1px solid #ffa726  !important;
+	background-color: #ffcc80  !important;
+}
+
+.mc_chatUrlTitle{
+	max-width:150px;
+}
+
+.mc_chatUrlImg{
+	max-width:150px;
+}
+
+textarea{
+	resize: none;
+	height:70px;
+}
+
+.mc_friendChatBoard_Input{
+	margin-top:10px;
+}
+
+.mc_resize06 {
+	height:70px;
+	padding-left:5px;
+	padding-right:5px;
+	text-align:center;
+	padding-top:20px;	
+}
+
+.mc_btngrp_size{
+	margin-bottom:10px;
+}
+
+.mc_pchat_title{
+	text-align:center;
+	font-weight:bold;
+}
+
+.mc_textresize{
+	margin-bottom:5px !important;
+	height:30px !important;
+}
+
+.mc_active {
+    background-color: #ee6e73;
+}
+
+.mc_systemMessage{
+	background-color: #515151;
+	color: #ffffff;
+	text-align:center;
+	margin-top:15px !important;
+	margin-bottom:15px !important;
+	margin-left:15px !important;
+}
+
+#mc_fcMessage[disabled] {
+	background-color: #aaaaaa;
+}
+
+#mc_fcSendDisable{
+	background-color: #aaaaaa;
+}
+
+.mc_btnDisable{
+	background-color: #dddddd !important;
+}
+
+.mc_friendname{
+	margin-left:3px !important;
+	margin-right:-3px !important;
+}
+
+.mc_noticeIcon{
+	color:red;
+}
+
+.mc_s11{
+	margin-right:0px !important;
+	padding-right:0px !important;
+}
+
+.mc_s1{
+	margin-left:0px !important;
+	padding-left:0px !important;
+}
