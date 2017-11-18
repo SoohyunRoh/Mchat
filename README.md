@@ -13,7 +13,7 @@ CSS Framework: Materialize 0.98.2<Br>
 <br>
   
 ## 2. Source explain
- [See wiki](https://github.com/SoohyunRoh/mchat/wiki/Mchat-wiki) 
+ [See wiki](https://github.com/SoohyunRoh/mchat/wiki) 
 
 ## 3. Server launching problems.
 I tried to upload the project to Amazon AWS and start an instance. However, the browser can't send **websocket** message to the server, because Listener at Amazon Load Balancer is not open for websocket (It makes 400 error). So, I changed setting 442 port protocol to TCP(secure) and HTTPS. Both protocols need SSL certification, and Amazone provides "AWS Certificate Manager(ACM)." But I don't have any domain, so I can't get the ACM.
