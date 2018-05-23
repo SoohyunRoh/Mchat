@@ -1,7 +1,7 @@
 /* APP */
 var app = angular.module('myChat',['ngFileUpload']);
 
-/* CONTROLLER */4
+/* CONTROLLER */
 app.controller('MyChatCtrl', function($scope, $http, $timeout, $window, socket, storage, Upload){
 
 	$scope.fileUpload = function() {
